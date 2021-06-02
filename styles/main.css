@@ -13,7 +13,13 @@ textarea {
 	font-size: 14px;
 	line-height: 1.5;
 }
-
+h1 {
+  padding: 2rem;
+  /* background-image: url("/assets/diamonds.jpg"); */
+}
+h2{
+  margin: 2rem;
+}
 h1,h2,h3,h4,h5,h6 {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
@@ -25,10 +31,11 @@ ul {
 }
 
 #orderButton {
-    margin: 1rem 0 2rem 2rem;
+    margin: 2rem 2rem 2rem 2rem;
     padding: 0.5rem;
     background-color: rgb(227, 72, 72);
     color: lightgoldenrodyellow;
     font-size: 1rem;
+    text-align: center;
 }
 
