@@ -6,6 +6,12 @@
 
 */
 const database = {
+
+    orderBuilder: {
+        metalId : 0,
+        sizeId : 0,
+        styleId : 0
+    },
     styles: [
         { id: 1, style: "Classic", price: 500 },
         { id: 2, style: "Modern", price: 710 },
@@ -36,6 +42,7 @@ const database = {
     ]
 }
 
+
 export const getMetals = () => {
     return database.metals.map(metal => ({...metal}))
 }
@@ -50,5 +57,17 @@ export const getStyles = () => {
 
 export const getCustomOrders = () => {
     return database.customOrders.map(customOrder => ({...customOrder}))
+}
+
+export const setMetal = (id) => {
+    database.orderBuilder.metalId = id
+}
+
+export const setSize = (id) => {
+    database.orderBuilder.sizeId = id
+}
+
+export const setStyle = (id) => {
+    database.orderBuilder.styleId = id
 }
 
