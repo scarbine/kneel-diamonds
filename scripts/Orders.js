@@ -1,10 +1,29 @@
-import { getOrders } from "./database.js"
+import { getOrders, getMetals } from "./database.js"
 
 const buildOrderListItem = (order) => {
+    const metals = getMetals()
+
+    // Remember that the function you pass to find() must return true/false
+    const foundMetal = metals.find(
+        (metal) => {
+            return metal.id === order.metalId
+        }
+    )
+    const totalCost = foundMetal.price
+    const costString = totalCost.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })
+    
     return `<li>
-        Order #${order.id} was placed on ${order.timestamp}
+        Order #${order.id} cost ${costString} and was place on ${order.timestamp}
     </li>`
+    
+    // return `<li>
+    //     Order #${order.id} was placed on ${order.timestamp}
+    // </li>`
 }
+
 export const Orders = () => {
     /*
         Can you explain why the state variable has to be inside
@@ -12,6 +31,8 @@ export const Orders = () => {
     */
     const orders = getOrders()
     
+    
+
     let html = "<ul>"
     const listItems = orders.map(buildOrderListItem)
     html += listItems.join("")
