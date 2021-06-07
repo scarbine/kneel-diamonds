@@ -8,3 +8,8 @@ const renderAllHTML = () => {
 
 renderAllHTML()
 
+document.addEventListener("stateChanged", event => {
+    console.log("State of the data has changed. Regenerating HTML...")
+    renderAllHTML()
+})
+

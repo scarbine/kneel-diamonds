@@ -6,7 +6,7 @@
 
 */
 const database = {
-
+    // This is the current state of the user choices
     orderBuilder: {
         metalId : 0,
         sizeId : 0,
@@ -38,6 +38,13 @@ const database = {
             sizeId: 2,
             styleId: 3,
             timestamp: 1614659931693
+        },
+        {
+            id: 2,
+            metalId: 4,
+            sizeId: 4,
+            styleId: 2,
+            timestamp: 1614659931693
         }
     ]
 }
@@ -55,7 +62,7 @@ export const getStyles = () => {
     return database.styles.map(style => ({...style}))
 }
 
-export const getCustomOrders = () => {
+export const getOrders = () => {
     return database.customOrders.map(customOrder => ({...customOrder}))
 }
 
@@ -71,3 +78,26 @@ export const setStyle = (id) => {
     database.orderBuilder.styleId = id
 }
 
+export const addCustomerOrder = () => {
+    // Copy the current state of the user choice
+    const newOrder = {...database.orderBuilder}
+
+    //  Add new primary key to the object
+    const lastIndex = database.customOrders.length -1
+    newOrder.id = database.customOrders[lastIndex].id + 1
+
+    // Add timestamp to the order
+    const timeElapsed = Date.now()
+    const today = new Date(timeElapsed)
+    newOrder.timestamp = today
+   
+
+    // Add new order to the custom orders state
+    database.customOrders.push(newOrder)
+
+    // Reset Temp state choices
+    database.orderBuilder = {}
+
+    //  Broadcast a notification the state has been changed
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
