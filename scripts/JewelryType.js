@@ -1,38 +1,43 @@
-import {getJewelryType, setType} from "./dataAccess.js"
+import {getJewelryType, setType, getOrderBuilder} from "./dataAccess.js"
+import {renderAllHTML} from "./main.js"
 
+document.addEventListener(
+    "change",
+    (event) => {  
+        if (event.target.name === "type") {
+            setType(parseInt(event.target.id))
+            window.alert(`User chose Jewelry Type: ${event.target.value}`)
+            renderAllHTML()
+            return setType
+        }
+    }
+)
+const types = getJewelryType()
 
 export const Type = () => {
-    const types = getJewelryType()
     
     let html = '<ul>'
 
-    // document.addEventListener("change",
-    //     (event) => {
-    //         const [,typeId] = event.target.id.split("--") 
-    //         const clickedItemObj = types.find((type) => {
-    //             return type.id === typeId
-    //         })
-    //     } )
-    document.addEventListener(
-        "change",
-        (event) => {  
-            if (event.target.name === "type") {
-                setType(parseInt(event.target.id))
-                window.alert(`User chose Jewelry Type: ${event.target.value}`)
-                return setType
-            }
-        }
-    )
-
-
     const listItemsArray = types.map(type => {
-        return `<li>
-            <input type="radio" name="type" value="${type.type}" id="${type.id}"/> ${type.type}</li>`
-    }) 
-    html += listItemsArray.join("")
-    html += "</ul>"
-    return html
-}
-
-
-
+        const orders = getOrderBuilder()
+        if (type.id === parseInt(orders.jewelryTypeId)){
+            return `<li>
+           <input type="radio" name="type" value="${type.type}" checked="checked" id="${type.id}"/> ${type.type}
+           </li>`
+           }
+           else {
+               return `<li>
+               <input type="radio" name="type" value="${type.type}" id="${type.id}"/> ${type.type}
+               </li>`
+               }
+           })
+           html += listItemsArray.join("")
+           html += "</ul>"
+           return html
+        }
+        
+        
+        
+        //     return `<li>
+        //         <input type="radio" name="type" value="${type.type}" id="${type.id}"/> ${type.type}</li>`
+        // }) 
