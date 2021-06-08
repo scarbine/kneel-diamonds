@@ -17,6 +17,10 @@ export const getOrders = () => {
     return database.customOrders.map(customOrder => ({...customOrder}))
 }
 
+export const getOrderBuilder = () => {
+    return database.orderBuilder
+}
+
 export const getJewelryType = () => {
     return database.jewelryType.map( type => ({...type}))
 }
